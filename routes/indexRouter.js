@@ -7,6 +7,7 @@ const {
   loginValidate,
   createUserValidate,
 } = require('../middlewares/validation');
+const { invalidPathMessage } = require('../utils/errorMessage');
 const NotFoundError = require('../errors/NotFoundError');
 
 indexRouter.post('/signin', loginValidate, loginUser);
@@ -19,7 +20,7 @@ indexRouter.use('/movies', movieRouter);
 indexRouter.post('/signout', logoutUser);
 
 indexRouter.use((req, res, next) => {
-  next(new NotFoundError('Неверно указан путь.'));
+  next(new NotFoundError(invalidPathMessage));
 });
 
 module.exports = indexRouter;

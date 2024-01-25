@@ -10,6 +10,16 @@ const NotFoundError = require('../errors/NotFoundError');
 const AuthorizationError = require('../errors/AuthorizationError');
 const DublicateError = require('../errors/DublicateError');
 
+const {
+  invalidCreateUserMessage,
+  dublicateUserMessage,
+  invalidMailPasswordMessage,
+  successfulLoginMessage,
+  dontFindUserIdMessage,
+  invalidUpdateUserMessage,
+  successfulLogoutMessage,
+} = require('../utils/errorMessage');
+
 module.exports.createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
@@ -29,16 +39,10 @@ module.exports.createUser = async (req, res, next) => {
   } catch (error) {
     switch (error.name) {
       case 'ValidationError':
-        return next(
-          new BadRequestError(
-            'Переданы некорректные данные при создании пользователя.'
-          )
-        );
+        return next(new BadRequestError(invalidCreateUserMessage));
       case 'MongoServerError':
         if (error.code === 11000) {
-          return next(
-            new DublicateError('Пользователь с таким email уже существует.')
-          );
+          return next(new DublicateError(dublicateUserMessage));
         }
         return next(error);
       default:
@@ -53,12 +57,12 @@ module.exports.loginUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      return next(new AuthorizationError('Неправильные почта или пароль'));
+      return next(new AuthorizationError(invalidMailPasswordMessage));
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return next(new AuthorizationError('Неправильные почта или пароль'));
+      return next(new AuthorizationError(invalidMailPasswordMessage));
     }
 
     const token = jwt.sign(
@@ -77,7 +81,7 @@ module.exports.loginUser = async (req, res, next) => {
     return res.send({
       email: user.email,
       _id: user._id,
-      message: 'Успешная авторизация',
+      message: successfulLoginMessage,
     });
   } catch (error) {
     return next(error);
@@ -88,7 +92,7 @@ module.exports.getUserInfo = async (req, res, next) => {
   try {
     const currentUser = await User.findById(req.user._id).select('-__v');
     if (!currentUser) {
-      return next(new NotFoundError('Пользовательс указанным _id не найден.'));
+      return next(new NotFoundError(dontFindUserIdMessage));
     }
     return res.json(currentUser);
   } catch (error) {
@@ -105,17 +109,18 @@ module.exports.updateUserData = async (req, res, next) => {
       { new: true, runValidators: true }
     ).select('-__v');
     if (!userUpdate) {
-      return next(new NotFoundError('Пользователь с указанным _id не найден.'));
+      return next(new NotFoundError(dontFindUserIdMessage));
     }
     return res.send(userUpdate);
   } catch (error) {
     switch (error.name) {
       case 'ValidationError':
-        return next(
-          new BadRequestError(
-            'Переданы некорректные данные при обновлении профиля.'
-          )
-        );
+        return next(new BadRequestError(invalidUpdateUserMessage));
+      case 'MongoServerError':
+        if (error.code === 11000) {
+          return next(new DublicateError(dublicateUserMessage));
+        }
+        return next(error);
       default:
         return next(error);
     }
@@ -130,7 +135,7 @@ module.exports.logoutUser = async (req, res, next) => {
         sameSite: true,
       })
       .send({
-        message: 'Вы успешно вышли из системы',
+        message: successfulLogoutMessage,
       });
   } catch (error) {
     return next(error);

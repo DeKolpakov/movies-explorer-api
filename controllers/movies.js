@@ -3,10 +3,18 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const UserRightsError = require('../errors/UserRightsError');
 
+const {
+  invalidCreateMovieMessage,
+  dontFindMovieIdMessage,
+  insufficientRightsDeleteMessage,
+  successfulDeleteMessage,
+  invalidDeleteMovieMessage,
+} = require('../utils/errorMessage');
+
 module.exports.getMovies = async (req, res, next) => {
   try {
-    const owner = req.user._id
-    const movie = await Movie.find({owner}).select('-__v');;
+    const owner = req.user._id;
+    const movie = await Movie.find({ owner }).select('-__v');
     return res.send(movie);
   } catch (error) {
     return next(error);
@@ -46,11 +54,7 @@ module.exports.createMovie = async (req, res, next) => {
   } catch (error) {
     switch (error.name) {
       case 'ValidationError':
-        return next(
-          new BadRequestError(
-            'Переданы некорректные данные при создании карточки.'
-          )
-        );
+        return next(new BadRequestError(invalidCreateMovieMessage));
       default:
         return next(error);
     }
@@ -63,24 +67,18 @@ module.exports.deleteMovie = async (req, res, next) => {
     const deletedMovie = await Movie.findByIdAndDelete(_id);
 
     if (!deletedMovie) {
-      return next(new NotFoundError('Карточка с указанным _id не найдена.'));
+      return next(new NotFoundError(dontFindMovieIdMessage));
     }
     if (deletedMovie.owner.toString() !== req.user._id.toString()) {
-      return next(
-        new UserRightsError('Недостаточно прав для удаления этой карточки')
-      );
+      return next(new UserRightsError(insufficientRightsDeleteMessage));
     }
     return res.send({
-      message: 'Карточка успешно удалена.',
+      message: successfulDeleteMessage,
     });
   } catch (error) {
     switch (error.name) {
       case 'CastError':
-        return next(
-          new BadRequestError(
-            'Переданы некорректные данные при удалении карточки.'
-          )
-        );
+        return next(new BadRequestError(invalidDeleteMovieMessage));
       default:
         return next(error);
     }

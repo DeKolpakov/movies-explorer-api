@@ -2,9 +2,7 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
 const User = require('../models/user');
-
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const AuthorizationError = require('../errors/AuthorizationError');
@@ -24,13 +22,11 @@ module.exports.createUser = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     const passwordHash = await bcrypt.hash(password, 10);
-
     const newUser = await User.create({
       name,
       email,
       password: passwordHash,
     });
-
     return res.send({
       name: newUser.name,
       email: newUser.email,
@@ -50,7 +46,6 @@ module.exports.createUser = async (req, res, next) => {
     }
   }
 };
-
 module.exports.loginUser = async (req, res, next) => {
   const { NODE_ENV, JWT_SECRET } = process.env;
   const { email, password } = req.body;
@@ -70,9 +65,8 @@ module.exports.loginUser = async (req, res, next) => {
       NODE_ENV === 'production' ? JWT_SECRET : 'eight-oil-sunset-giraffe',
       {
         expiresIn: '7d',
-      }
+      },
     );
-
     res.cookie('jwt', token, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
@@ -106,7 +100,7 @@ module.exports.updateUserData = async (req, res, next) => {
     const userUpdate = await User.findByIdAndUpdate(
       req.user._id,
       { name, email },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     ).select('-__v');
     if (!userUpdate) {
       return next(new NotFoundError(dontFindUserIdMessage));

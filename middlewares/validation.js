@@ -2,31 +2,35 @@ const { celebrate, Joi } = require('celebrate');
 
 module.exports.createUserValidate = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email().messages({
-      'any.required': 'Поле "email" является обязательным',
-      'string.email':
-        'Поле "email" должно быть действительным адресом электронной почты',
-    }),
-    password: Joi.string().required().min(8).messages({
-      'any.required': 'Поле "password" является обязательным',
-      'string.min':
-        'Поле "password" должно содержать не менее {#limit} символов',
-    }),
-    name: Joi.string().required().min(2).max(30).messages({
-      'any.required': 'Поле "name" является обязательным',
-      'string.min': 'Поле "name" должно содержать не менее {#limit} символов',
-      'string.max': 'Поле "name" должно содержать не более {#limit} символов',
-    }),
+    email: Joi.string().required().email()
+      .messages({
+        'any.required': 'Поле "email" является обязательным',
+        'string.email':
+          'Поле "email" должно быть действительным адресом электронной почты',
+      }),
+    password: Joi.string().required().min(8)
+      .messages({
+        'any.required': 'Поле "password" является обязательным',
+        'string.min':
+          'Поле "password" должно содержать не менее {#limit} символов',
+      }),
+    name: Joi.string().required().min(2).max(30)
+      .messages({
+        'any.required': 'Поле "name" является обязательным',
+        'string.min': 'Поле "name" должно содержать не менее {#limit} символов',
+        'string.max': 'Поле "name" должно содержать не более {#limit} символов',
+      }),
   }),
 });
 
 module.exports.loginValidate = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required().email().messages({
-      'any.required': 'Поле "email" является обязательным',
-      'string.email':
-        'Поле "email" должно быть действительным адресом электронной почты',
-    }),
+    email: Joi.string().required().email()
+      .messages({
+        'any.required': 'Поле "email" является обязательным',
+        'string.email':
+          'Поле "email" должно быть действительным адресом электронной почты',
+      }),
     password: Joi.string().required().messages({
       'any.required': 'Поле "password" является обязательным',
     }),
@@ -35,26 +39,29 @@ module.exports.loginValidate = celebrate({
 
 module.exports.updateUserValidate = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30).messages({
-      'any.required': 'Поле "name" является обязательным',
-      'string.min': 'Поле "name" должно содержать не менее {#limit} символов',
-      'string.max': 'Поле "name" должно содержать не более {#limit} символов',
-    }),
-    email: Joi.string().required().email().messages({
-      'any.required': 'Поле "email" является обязательным',
-      'string.email':
-        'Поле "email" должно быть действительным адресом электронной почты',
-    }),
+    name: Joi.string().required().min(2).max(30)
+      .messages({
+        'any.required': 'Поле "name" является обязательным',
+        'string.min': 'Поле "name" должно содержать не менее {#limit} символов',
+        'string.max': 'Поле "name" должно содержать не более {#limit} символов',
+      }),
+    email: Joi.string().required().email()
+      .messages({
+        'any.required': 'Поле "email" является обязательным',
+        'string.email':
+          'Поле "email" должно быть действительным адресом электронной почты',
+      }),
   }),
 });
 
 module.exports.movieIdValidate = celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().required().hex().length(24).messages({
-      'any.required': 'Поле "_id" является обязательным',
-      'string.hex': 'Поле "_id" должно быть шестнадцатеричным',
-      'string.length': 'Поле "_id" должно содержать точно 24 символа',
-    }),
+    _id: Joi.string().required().hex().length(24)
+      .messages({
+        'any.required': 'Поле "_id" является обязательным',
+        'string.hex': 'Поле "_id" должно быть шестнадцатеричным',
+        'string.length': 'Поле "_id" должно содержать точно 24 символа',
+      }),
   }),
 });
 

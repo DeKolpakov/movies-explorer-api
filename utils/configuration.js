@@ -8,4 +8,10 @@ const {
   JWT_SECRET,
 } = process.env;
 
-module.exports = { PORT, LOCALHOST, DBADDRES, NODE_ENV, JWT_SECRET };
+module.exports = {
+  PORT,
+  LOCALHOST,
+  DBADDRES,
+  NODE_ENV,
+  JWT_SECRET,
+};

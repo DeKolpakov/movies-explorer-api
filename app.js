@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const routes = require('./routes/indexRouter');
 const cors = require('./middlewares/cors');
 const limiter = require('./middlewares/limiter');
-const centralError = require('./middlewares/centralError')
+const centralError = require('./middlewares/centralError');
 
 const { logRequest, logError } = require('./middlewares/logging');
 
@@ -29,6 +29,6 @@ app.use(routes);
 
 app.use(logError);
 app.use(errors());
-app.use(centralError)
+app.use(centralError);
 
 app.listen(PORT);

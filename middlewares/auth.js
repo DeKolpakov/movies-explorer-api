@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
 
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : 'eight-oil-sunset-giraffe'
+      NODE_ENV === 'production' ? JWT_SECRET : 'eight-oil-sunset-giraffe',
     );
   } catch (err) {
     throw new AuthorizationError(invalidDeleteMovieMessage);

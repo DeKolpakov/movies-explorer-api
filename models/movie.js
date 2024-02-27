@@ -34,34 +34,16 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: { value: true, message: requiredFieldMessage },
-    validate: {
-      validator(v) {
-        return urlRegrex.test(v);
-      },
-      message: invalidURLMessage,
-    },
   },
 
   trailerLink: {
     type: String,
     required: { value: true, message: requiredFieldMessage },
-    validate: {
-      validator(v) {
-        return urlRegrex.test(v);
-      },
-      message: invalidURLMessage,
-    },
   },
 
   thumbnail: {
     type: String,
     required: { value: true, message: requiredFieldMessage },
-    validate: {
-      validator(v) {
-        return urlRegrex.test(v);
-      },
-      message: invalidURLMessage,
-    },
   },
 
   owner: {

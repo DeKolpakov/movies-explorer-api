@@ -1,6 +1,7 @@
 const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3001',
+  'https://api.nomoreparties.co',
   'http://movie.dekolpakov.nomoredomainsmonster.ru',
   'https://movie.dekolpakov.nomoredomainsmonster.ru',
   'http://api.movie.dekolpakov.nomoredomainsmonster.ru',

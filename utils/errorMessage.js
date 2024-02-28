@@ -1,5 +1,5 @@
-module.exports.invalidTokenMessage = 'Переданы некорректные данные при создании пользователя.';
-module.exports.dontFindeTokenMessage = 'Переданы некорректные данные при создании пользователя.';
+module.exports.invalidTokenMessage = 'Передан некорректный токен авторизации.';
+module.exports.dontFindeTokenMessage = 'Отсутствует токен авторизации.';
 module.exports.invalidCreateUserMessage = 'Переданы некорректные данные при создании пользователя.';
 module.exports.dublicateUserMessage = 'Пользователь с таким email уже существует.';
 module.exports.invalidMailPasswordMessage = 'Неправильные почта или пароль';

@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
     if (!token) {
       throw new AuthorizationError(dontFindeTokenMessage);
     }
-
     payload = jwt.verify(
       token,
       NODE_ENV === 'production' ? JWT_SECRET : 'eight-oil-sunset-giraffe',

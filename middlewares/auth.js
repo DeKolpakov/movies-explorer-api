@@ -2,14 +2,14 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const { NODE_ENV, JWT_SECRET } = require('../utils/configuration');
 const AuthorizationError = require('../errors/AuthorizationError');
-const { invalidTokenMessage, dontFindeTokenMessage } = require('../utils/errorMessage');
+const { invalidTokenMessage, dontFindTokenMessage } = require('../utils/errorMessage');
 
 module.exports = (req, res, next) => {
   let payload;
   try {
     const token = req.cookies.jwt;
     if (!token) {
-      throw new AuthorizationError(dontFindeTokenMessage);
+      throw new AuthorizationError(dontFindTokenMessage);
     }
     payload = jwt.verify(
       token,

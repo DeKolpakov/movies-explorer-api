@@ -1,0 +1,197 @@
+{
+  "info": {
+    "_postman_id": "3d1bf901-9480-4ccc-9abc-acffbb6b75a0",
+    "name": "movie-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "22522017"
+  },
+  "item": [
+    {
+      "name": "user Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users/me",
+          "host": ["{{base_url}}"],
+          "path": ["users", "me"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"user@ya.ru\",\r\n    \"password\": \"test1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/signin",
+          "host": ["{{base_url}}"],
+          "path": ["signin"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/signout",
+          "host": ["{{base_url}}"],
+          "path": ["signout"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"User\",\r\n    \"email\": \"user@ya.ru\",\r\n    \"password\": \"test1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/signup",
+          "host": ["{{base_url}}"],
+          "path": ["signup"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update User Data",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"User1\",\r\n    \"email\": \"User1@ya.ru\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/users/me",
+          "host": ["{{base_url}}"],
+          "path": ["users", "me"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get savedMovies",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{base_url}}/movies",
+          "host": ["{{base_url}}"],
+          "path": ["movies"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "save movie",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"country\": \"Великобритания, США\",\r\n    \"director\": \"Гай Ричи\",\r\n    \"duration\": 104,\r\n    \"year\": \"2000\",\r\n    \"description\": \"Фрэнки Четыре Пальца должен был переправить краденый алмаз из Англии в США своему боссу Эви, но, сделав ставку на подпольный боксерский поединок, он попал в круговорот весьма нежелательных событий.\",\r\n    \"image\": \"https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/e52dd7e7-1df1-4dbc-a9a2-a557e40cbd29/1920x\",\r\n    \"trailerLink\": \"https://www.kinopoisk.ru/film/526/?ysclid=lrqlackxoi285935876&utm_referrer=yandex.ru\",\r\n    \"thumbnail\": \"https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/47fe48f6-ff17-4411-a12f-d337bea2639d/300x450\",\r\n    \"movieId\": 12345,\r\n    \"nameRU\": \"Большой куш\",\r\n    \"nameEN\": \"Snatch\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/movies",
+          "host": ["{{base_url}}"],
+          "path": ["movies"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete movie",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/movies/_id",
+          "host": ["{{base_url}}"],
+          "path": ["movies", "_id"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "beatfilms",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "https://api.nomoreparties.co/beatfilm-movies",
+          "protocol": "https",
+          "host": ["api", "nomoreparties", "co"],
+          "path": ["beatfilm-movies"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
+
